@@ -1,0 +1,19 @@
+{
+    "name": "app/pedidos",
+    "authors": [
+        {
+            "name": "Ramazani",
+            "email": "willscottking@gmail.com"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+
+    "require": {
+        "phpmailer/phpmailer": "^6.8"
+    }
+}
