@@ -58,7 +58,7 @@ CREATE TABLE `compras` (
   `quantidade` int(10) NOT NULL,
   `imagem` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,11 +117,11 @@ CREATE TABLE `pedidos` (
   `total_produtos` varchar(1000) NOT NULL,
   `total_preço` int(100) NOT NULL,
   `data` date NOT NULL DEFAULT current_timestamp(),
-  `estado_pagamento` varchar(20) NOT NULL DEFAULT 'pendente',
+  `estado_pagamento` varchar(20) NOT NULL DEFAULT '1',
   `confirmacao_cliente` varchar(20) DEFAULT 'false',
   `confirmacao_motoboy` varchar(20) DEFAULT 'false',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +130,7 @@ CREATE TABLE `pedidos` (
 
 LOCK TABLES `pedidos` WRITE;
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
-INSERT INTO `pedidos` VALUES (14,3,'Domingos','944895118','domingosnkulajw@gmail.com','cartão de crédito','45, 74, Hoji Ya Henda, Luanda, Cazenga, Angola','kkkk (12 x 1) - ',12,'2023-05-05','completado','true','false');
+INSERT INTO `pedidos` VALUES (14,3,'Domingos','944895118','domingosnkulajw@gmail.com','cartão de crédito','45, 74, Hoji Ya Henda, Luanda, Cazenga, Angola','kkkk (12 x 1) - ',12,'2023-05-05','3','true','false'),(16,3,'Domingos','944895118','domingosnkulajw@gmail.com','E-kwanza','45, 74, Hoji Ya Henda, Luanda, Cazenga, Angola','kkkk (12 x 1) - ',12,'2023-05-10','0','true','false'),(17,6,'Domingos Pedro','89587485','novoemail29102001@gmail.com','dinheiro na entrega',' ,  ,  ,  ,  ,  ','kkkk (12 x 1) - ',12,'2023-05-14','0','false','false'),(18,6,'Domingos Pedro','89587485','novoemail29102001@gmail.com','cartão de crédito',' ,  ,  ,  ,  ,  ','kkkk (12 x 79) - ',948,'2023-05-14','2','true','false');
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +178,7 @@ CREATE TABLE `usuario` (
   `cod_recuperar_senha` varchar(255) DEFAULT NULL,
   `acesso` int(1) DEFAULT 3,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +187,6 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (2,'Ramazani Antonio','willscottking@gmail.com','942145095','40bd001563085fc35165329ea1ff5c5ecbdbbeef','','845211',3),(3,'Domingos','domingosnkulajw@gmail.com','944895118','40bd001563085fc35165329ea1ff5c5ecbdbbeef','45, 74, Hoji Ya Henda, Luanda, Cazenga, Angola','485214',3),(4,'António Gustavo','antonio@gmail.com','999','40bd001563085fc35165329ea1ff5c5ecbdbbeef','','810846',3);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -200,4 +199,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-10  0:00:32
+-- Dump completed on 2023-05-14 18:58:44
