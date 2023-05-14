@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
          $message[] = 'por favor, adicione o seu endereço!';
       }else{
          
-         $insert_order = $conn->prepare("INSERT INTO `pedidos`(user_id, nome, contacto, email, metodo, endereço, total_produtos, total_preço) VALUES(?,?,?,?,?,?,?,?)");
+         $insert_order = $conn->prepare("INSERT INTO `pedidos`(user_id, nome, contacto, email, metodo, endereço, total_produtos, total_preço, estado_pagamento) VALUES(?,?,?,?,?,?,?,?, 1)");
          $insert_order->execute([$user_id, $name, $number, $email, $method, $address, $total_products, $total_price]);
 
          $delete_cart = $conn->prepare("DELETE FROM `compras` WHERE user_id = ?");
