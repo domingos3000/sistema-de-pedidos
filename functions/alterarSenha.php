@@ -23,6 +23,8 @@ if($sql->rowCount() > 0):
     if($sql->rowCount() > 0){
 
         unset($_SESSION['autorizacao']);
+        
+        $_SESSION["mensagens"][] = "Senha alterada com sucesso!";
         header("location: ./../login.php");
         return;
     }
