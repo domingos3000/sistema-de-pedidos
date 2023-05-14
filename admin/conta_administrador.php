@@ -2,7 +2,7 @@
 
 include __DIR__ . './../components/connect.php';
 
-session_start();
+@session_start();
 
 $admin_id = $_SESSION['admin_id'];
 

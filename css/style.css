@@ -947,13 +947,6 @@ section{
 }
 
 
-
-
-
-
-
-
-
 .footer .grid{
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
@@ -1021,6 +1014,46 @@ section{
 .loader img{
    height: 25rem;
 }
+
+.mensagens_animadas {
+   display: grid;
+   place-items: center;
+   margin-top: 15px;
+}
+
+.mensagens_animadas > div {
+   background-color: #2e2e2e;
+   padding: 10px;
+   display: flex;
+   gap: 15px; 
+   place-items: center;
+   font-size: 15px;
+   border-radius: 4px;
+   color: #fff;
+}
+
+.mensagens_animadas.true {
+   background-color: #3ca12f;
+}
+
+.mensagens_animadas.false {
+   background-color: #ff4040;
+}
+
+.mensagens_animadas .botao_fechar {
+   border: 0 !important;
+   outline: none;
+   border-radius: 50%;
+   display: grid;
+   place-items: center;
+   font-size: 16px;
+   width: 30px;
+   height: 30px;
+   background-color: #ffffff4a;
+   color: #fff;
+   cursor: pointer;
+}
+
 
 
 

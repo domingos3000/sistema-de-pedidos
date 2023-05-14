@@ -2,7 +2,7 @@
 
 include __DIR__ . './components/connect.php';
 
-session_start();
+@session_start();
 
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
@@ -92,6 +92,7 @@ if(isset($_POST['submit'])){
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
    <!-- link de arquivo css personalizado -->
+   <link rel="stylesheet" href="./css/animate.min.css">
    <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -125,12 +126,7 @@ if(isset($_POST['submit'])){
 
 
 
-<?php include 'components/footer.php'; ?>
-
-
-
-
-
+<?php include __DIR__ . './components/footer.php'; ?>
 
 <!-- link de arquivo js personalizado -->
 <script src="js/script.js"></script>

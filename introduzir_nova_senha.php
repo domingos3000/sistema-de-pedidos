@@ -1,5 +1,5 @@
 <?php
-session_start();
+@session_start();
 
 if((!isset($_SESSION['autorizacao']) AND $_SESSION['autorizacao'] != true) OR $_SESSION['autorizacao'] != true):
     header('location: recuperar_senha.php');

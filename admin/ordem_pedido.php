@@ -3,7 +3,7 @@
 include __DIR__ . './../components/connect.php';
 include_once __DIR__ . './../functions/pegarEstado.php';
 
-session_start();
+@session_start();
 
 $admin_id = $_SESSION['admin_id'];
 

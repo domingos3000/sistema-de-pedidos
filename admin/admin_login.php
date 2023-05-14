@@ -2,7 +2,7 @@
 
 include __DIR__ . './../components/connect.php';
 
-session_start();
+@session_start();
 
 if(isset($_POST['submit'])){
 
@@ -11,7 +11,7 @@ if(isset($_POST['submit'])){
    $pass = sha1($_POST['pass']);
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
 
-   $select_admin = $conn->prepare("SELECT * FROM `admin` WHERE nome = ? AND senha = ?");
+   $select_admin = $conn->prepare("SELECT * FROM `admin` WHERE nome = ? AND senha = ? LIMIT 1");
    $select_admin->execute([$name, $pass]);
    
    if($select_admin->rowCount() > 0){
