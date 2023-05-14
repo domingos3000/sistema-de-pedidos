@@ -31,8 +31,10 @@ if(isset($_POST['submit'])){
          $_SESSION['user_id'] = $row['id'];
          $_SESSION["mensagens"][] = 'Logado com sucesso!';
 
-         $stmt = $conn->prepare("UPDATE usuario SET acesso = ? WHERE id = ?");
-         $stmt->execute([3, $row['id']]);
+         if($row["acesso"] != "3"):
+            $stmt = $conn->prepare("UPDATE usuario SET acesso = ? WHERE id = ?");
+            $stmt->execute([3, $row['id']]);
+         endif;
          
          header('location:home.php');
          return;

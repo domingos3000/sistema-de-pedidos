@@ -25,6 +25,10 @@ if($sql->rowCount() > 0):
         unset($_SESSION['autorizacao']);
         
         $_SESSION["mensagens"][] = "Senha alterada com sucesso!";
+
+        $stmt = $conn->prepare("UPDATE usuario SET acesso = ? WHERE id = ?");
+        $stmt->execute([3, $id_user]);
+
         header("location: ./../login.php");
         return;
     }
