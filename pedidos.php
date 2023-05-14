@@ -68,15 +68,18 @@ if(isset($_SESSION['user_id'])){
 
       <p>Estado do pagamento : <span style="color:<?php ?>"><?= pegarEstado($fetch_orders['estado_pagamento']); ?></span> </p>
       
-      <?php if($fetch_orders['estado_pagamento'] == '1'): ?>
+      <?php if($fetch_orders['estado_pagamento'] == '1' && $fetch_orders['confirmacao_cliente'] != "true"): ?>
          <a class="btn-cancelar-pedido" href="functions/cancelar_pedido.php?id_pedido=<?= $fetch_orders['id']; ?>">
                Cancelar pedido
          </a>
-      <?php // elseif($fetch_orders['estado_pagamento'] == 'completado' and $fetch_orders['confirmacao_cliente'] == 'false'): ?>
-         <a class="btn-cancelar-pedido ok" href="functions/confirmar_pedido.php?id_pedido=<?= $fetch_orders['id']; ?>">
-               Confirmar como recebido
-         </a>
+
       <?php endif; ?>
+
+      <?php if($fetch_orders['confirmacao_cliente'] != 'true' && $fetch_orders['estado_pagamento'] == '2'): ?>
+            <a class="btn-cancelar-pedido ok" href="functions/confirmar_pedido.php?id_pedido=<?= $fetch_orders['id']; ?>">
+                  Confirmar como recebido
+            </a>
+         <?php endif; ?>
    </div>
 
    
