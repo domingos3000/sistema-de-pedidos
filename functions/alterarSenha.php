@@ -29,8 +29,12 @@ if($sql->rowCount() > 0):
         return;
     }
 
-    echo "Ocorreu um erro!";
+    unset($_SESSION['autorizacao']);
+    $_SESSION["mensagens"][] = "Falha no sistema! Tente mais tarde.";
+    header("location: ./../");
 
 else:
-    echo "Este usuário não existe!";
+    unset($_SESSION['autorizacao']);
+    $_SESSION["mensagens"][] = "Usuário não existe!";
+    header("location: ./../");
 endif;

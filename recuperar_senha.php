@@ -17,17 +17,20 @@ if(isset($_POST['email'])):
         $name_user = $dados["nome"];
         $cod_user =  $dados["cod_recuperar_senha"];
 
+        if(enviarEmailParaUsuario($email_user, $name_user, $cod_user)){
+
+            $_SESSION["mensagens"][] = "Código enviado via email! Insira-o no campo abaixo";
+    
+        } else {
+    
+            $_SESSION["mensagens"][] = "Ocorreu um erro ao enviar o código! Certifique-se de que estejas conectado a internet. Ou tente mais tarde.";
+        }
+
+    else:
+        $_SESSION["mensagens"][] = "Este email não existe no sistema! Tente novamente.";
     endif;
 
-    if(enviarEmailParaUsuario($email_user, $name_user, $cod_user)){
-
-        $_SESSION["mensagens"][] = "Código enviado via email! Insira-o no campo abaixo";
-
-    } else {
-
-        $_SESSION["mensagens"][] = "Ocorreu um erro ao enviar o código! Certifique-se de que estejas conectado a internet. Ou tente mais tarde.";
-    }
-
+    
 endif;
 
 ?>
@@ -44,7 +47,7 @@ endif;
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="./css/style.css">
-    
+
     <title>Recuperar senha</title>
 </head>
 <body>
