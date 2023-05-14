@@ -22,10 +22,21 @@ if(isset($_POST['submit'])){
    $row = $select_user->fetch(PDO::FETCH_ASSOC);
 
    if($select_user->rowCount() > 0):
-      $_SESSION['user_id'] = $row['id'];
-      $_SESSION["mensagens"][] = 'Logado com sucesso!';
-      header('location:home.php');
-      return;
+
+      if(intval($row["acesso"]) <= 0):
+         $_SESSION["mensagens"][] = "Infelizmente você foi bloqueado por errar a senha três vezes seguidas!";
+         $_SESSION["mensagens"][] = "Crie uma nova senha";
+      
+      else:
+         $_SESSION['user_id'] = $row['id'];
+         $_SESSION["mensagens"][] = 'Logado com sucesso!';
+
+         $stmt = $conn->prepare("UPDATE usuario SET acesso = ? WHERE id = ?");
+         $stmt->execute([3, $row['id']]);
+         
+         header('location:home.php');
+         return;
+      endif; 
    
    else:
       $stmt = $conn->prepare("SELECT acesso, id FROM usuario WHERE email = ?");
