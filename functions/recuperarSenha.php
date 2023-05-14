@@ -21,11 +21,13 @@ if($sql->execute()):
     $codigoBD = $sql->fetchColumn(); // Pegando somente o valor da primeira coluna
 
     if($codigo_confirmacao != $codigoBD){
+        $_SESSION["mensagens"][] = "Código de confirmação incorreto! Tente novamente.";
         header("location: ./../recuperar_senha.php"); 
         return false;
     }
 
     $_SESSION['autorizacao'] = ["email" => $email, "status" => true];
+    $_SESSION["mensagens"][] = "Crie uma nova senha";
     header("location: ./../introduzir_nova_senha.php");
 
 endif;
