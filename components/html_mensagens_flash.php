@@ -1,4 +1,8 @@
-<?php if(isset($mensagens)): ?>
+<?php 
+    include_once __DIR__ . "./../functions/mensagens_flash.php";
+    
+    if(isset($mensagens)): 
+?>
 
 <?php foreach($mensagens as $msg): ?>
 
@@ -14,6 +18,7 @@
         </div>
     </div>
 
-<?php endforeach; ?>
-
-<?php endif; ?>
+<?php 
+        endforeach;
+    endif; 
+?>

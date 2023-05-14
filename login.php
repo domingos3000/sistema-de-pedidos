@@ -25,6 +25,7 @@ if(isset($_POST['submit'])){
       $_SESSION['user_id'] = $row['id'];
       $_SESSION["mensagens"][] = 'Logado com sucesso!';
       header('location:home.php');
+      return;
    }else{
       $_SESSION["mensagens"][] = 'O nome de usuario ou senha está incorrecta!';
    }

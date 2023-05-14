@@ -1,8 +1,8 @@
 <?php
 
+@session_start();
 include __DIR__ . './components/connect.php';
 
-@session_start();
 
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
@@ -11,7 +11,6 @@ if(isset($_SESSION['user_id'])){
 };
 
 include __DIR__ . './components/add_carrinho.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +34,7 @@ include __DIR__ . './components/add_carrinho.php';
 <body>
 
 <?php include 'components/usuario_cabeçalho.php'; ?>
+<?php include_once __DIR__ . './components/html_mensagens_flash.php'; ?>
 
 
 
