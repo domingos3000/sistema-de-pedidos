@@ -64,7 +64,8 @@ endif;
                 <input type="hidden" value="<?= $_POST['email'] ?>" name="email"/>
                 <input type="submit" value="Validar" name="submit" class="btn">
             </form>
-
+            
+           
         </section>
 
     <?php else: ?>
@@ -75,7 +76,13 @@ endif;
                 <h3>Esqueci minha senha</h3>
                 <input type="email" name="email" required placeholder="Informe seu email" class="box" maxlength="50" oninput="this.value = this.value.replace(/\s/g, '')">
                 <input type="submit" value="Pedir código" name="submit" class="btn">
+
+                <p>
+                    <a href="">Voltar a página inicial</a>
+                </p>
             </form>
+
+           
 
         </section>
         
