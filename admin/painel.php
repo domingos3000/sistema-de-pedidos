@@ -56,10 +56,10 @@ if(!isset($admin_id)){
       <p>total pendentes</p>
       
       <?= $count_pendings > 0
-         ? "<a href='ordem_pedido.php' class='btn'>Ver pedidos</a>"
+         ? "<a href='ordem_pedido.php?filter=1' class='btn'>Ver pedidos</a>"
          : "<a  class='btn' data-disabled >Ver pedidos</a>"
       ?>
-      
+
    </div>
 
    <div class="box">
@@ -74,7 +74,7 @@ if(!isset($admin_id)){
       <p>total completados</p>
       
       <?= $count_completes > 0 
-         ? "<a href='ordem_pedido.php' class='btn'>Ver pedidos</a>"
+         ? "<a href='ordem_pedido.php?filter=3' class='btn'>Ver pedidos</a>"
          : "<a class='btn' data-disabled >Ver pedidos</a>"
       ?>
 
@@ -88,7 +88,7 @@ if(!isset($admin_id)){
       ?>
       <h3><?= $numbers_of_orders; ?></h3>
       <p>total de pedidos</p>
-      <a href="ordem_pedido.php" class="btn">Ver pedidos</a>
+      <a href="ordem_pedido.php?filter=all" class="btn">Ver pedidos</a>
    </div>
 
    <div class="box">

@@ -59,6 +59,17 @@ if(isset($_GET['filter'])){
       }
    }
 
+} else {
+   
+   $sql = $conn->prepare("SELECT * FROM pedidos");
+   $sql->execute();
+
+   if($sql->rowCount() > 0){
+      $dados_filtrados = $sql->fetchAll(PDO::FETCH_ASSOC);
+   }
+    else {
+      $dados_filtrados = false;
+   }
 }
 
 ?>
