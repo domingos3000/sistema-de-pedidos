@@ -28,6 +28,39 @@ if(isset($_GET['delete'])){
    header('location:ordem_pedido.php');
 }
 
+if(isset($_GET['filter'])){
+
+   $id_filter = $_GET['filter'];
+
+   if($id_filter == "all"){
+
+      $sql = $conn->prepare("SELECT * FROM pedidos");
+      $sql->execute();
+
+      if($sql->rowCount() > 0){
+      
+         $dados_filtrados = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+      } else {
+         $dados_filtrados = false;
+      }
+
+   } else {
+
+      $sql = $conn->prepare("SELECT * FROM pedidos WHERE estado_pagamento = ?");
+      $sql->execute([$id_filter]);
+   
+      if($sql->rowCount() > 0){
+         
+         $dados_filtrados = $sql->fetchAll(PDO::FETCH_ASSOC);
+         
+      } else {
+         $dados_filtrados = false;
+      }
+   }
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -58,27 +91,27 @@ if(isset($_GET['delete'])){
    <div class="box-container">
 
    <?php
-      $select_orders = $conn->prepare("SELECT * FROM `pedidos`");
-      $select_orders->execute();
-      if($select_orders->rowCount() > 0){
-         while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
+      if(!$dados_filtrados):
+         echo "<p class='empty'>Nenhum dado encontrado!</p>";
+      else:
+      foreach ($dados_filtrados as $dados):
    ?>
    <div class="box">
-      <p> Usuario id : <span><?= $fetch_orders['user_id']; ?></span> </p>
-      <p> Data : <span><?= $fetch_orders['data']; ?></span> </p>
-      <p> Nome : <span><?= $fetch_orders['nome']; ?></span> </p>
-      <p> Email : <span><?= $fetch_orders['email']; ?></span> </p>
-      <p> Número : <span><?= $fetch_orders['contacto']; ?></span> </p>
-      <p> Endereço : <span><?= $fetch_orders['endereço']; ?></span> </p>
-      <p> Produtos total : <span><?= $fetch_orders['total_produtos']; ?></span> </p>
-      <p> Preço total : <span>Kz <?= $fetch_orders['total_preço']; ?></span> </p>
-      <p> Metodo de pagamento : <span><?= $fetch_orders['metodo']; ?></span> </p>
+      <p> Usuario id : <span><?= $dados['user_id']; ?></span> </p>
+      <p> Data : <span><?= $dados['data']; ?></span> </p>
+      <p> Nome : <span><?= $dados['nome']; ?></span> </p>
+      <p> Email : <span><?= $dados['email']; ?></span> </p>
+      <p> Número : <span><?= $dados['contacto']; ?></span> </p>
+      <p> Endereço : <span><?= $dados['endereço']; ?></span> </p>
+      <p> Produtos total : <span><?= $dados['total_produtos']; ?></span> </p>
+      <p> Preço total : <span>Kz <?= $dados['total_preço']; ?></span> </p>
+      <p> Metodo de pagamento : <span><?= $dados['metodo']; ?></span> </p>
       <form action="" method="POST">
-         <input type="hidden" name="order_id" value="<?= $fetch_orders['id']; ?>">
+         <input type="hidden" name="order_id" value="<?= $dados['id']; ?>">
 
-         <select <?= $fetch_orders['estado_pagamento'] == 'cancelado' ? 'disabled' : ''; ?> name="payment_status" class="drop-down">
-            <option selected disabled value="<?= $fetch_orders['estado_pagamento']; ?>">
-               <?= pegarEstado($fetch_orders['estado_pagamento']); ?>
+         <select <?= $dados['estado_pagamento'] == '0' ? 'disabled' : ''; ?> name="payment_status" class="drop-down">
+            <option selected disabled value="<?= $dados['estado_pagamento']; ?>">
+               <?= pegarEstado($dados['estado_pagamento']); ?>
             </option>
             
             <option value="1">Pendente</option>
@@ -87,17 +120,24 @@ if(isset($_GET['delete'])){
          </select>
 
          <div class="flex-btn">
-            <input type="submit" value="concluir" class="btn" name="update_payment">
-            <a href="ordem_pedido.php?delete=<?= $fetch_orders['id']; ?>" class="delete-btn" onclick="return confirm('pretende eliminar este pedido?');">excluir</a>
+
+            <?=
+
+               $dados['estado_pagamento'] != '0' 
+                  ? "<input type='submit' value='concluir' class='btn' name='update_payment'>" 
+                  : '';
+            
+            ?>
+
+            <a href="ordem_pedido.php?delete=<?= $dados['id']; ?>" class="delete-btn" onclick="return confirm('pretende eliminar este pedido?');">excluir</a>
          </div>
       </form>
    </div>
-   <?php
-      }
-   }else{
-      echo '<p class="empty">Não tem pedidos ainda!</p>';
-   }
-   ?>
+
+      <?php
+         endforeach;
+         endif;
+      ?>
 
    </div>
 

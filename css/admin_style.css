@@ -516,6 +516,13 @@ section{
    color:var(--main-color);
 }
 
+[data-disabled],
+[data-disabled]:hover
+{
+   opacity: 0.5 !important;
+}
+
+
 
 
 

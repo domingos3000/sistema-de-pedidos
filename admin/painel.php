@@ -49,28 +49,35 @@ if(!isset($admin_id)){
       <?php
          $total_pendings = 0;
          $select_pendings = $conn->prepare("SELECT * FROM `pedidos` WHERE estado_pagamento = ?");
-         $select_pendings->execute(['pendente']);
-         while($fetch_pendings = $select_pendings->fetch(PDO::FETCH_ASSOC)){
-            $total_pendings += $fetch_pendings['total_preço'];
-         }
+         $select_pendings->execute(['1']);
+         $count_pendings = $select_pendings->rowCount();
       ?>
-      <h3><span>Kz</span><?= $total_pendings; ?><span></span></h3>
+      <h3> <?= $count_pendings; ?> </h3>
       <p>total pendentes</p>
-      <a href="ordem_pedido.php" class="btn">Ver pedidos</a>
+      
+      <?= $count_pendings > 0
+         ? "<a href='ordem_pedido.php' class='btn'>Ver pedidos</a>"
+         : "<a  class='btn' data-disabled >Ver pedidos</a>"
+      ?>
+      
    </div>
 
    <div class="box">
       <?php
          $total_completes = 0;
          $select_completes = $conn->prepare("SELECT * FROM `pedidos` WHERE estado_pagamento = ?");
-         $select_completes->execute(['completado']);
-         while($fetch_completes = $select_completes->fetch(PDO::FETCH_ASSOC)){
-            $total_completes += $fetch_completes['total_preço'];
-         }
+         $select_completes->execute(['3']);
+         $count_completes = $select_completes->rowCount();
       ?>
-      <h3><span>Kz</span><?= $total_completes; ?><span></span></h3>
+
+      <h3> <?= $count_completes; ?> </h3>
       <p>total completados</p>
-      <a href="ordem_pedido.php" class="btn">Ver pedidos</a>
+      
+      <?= $count_completes > 0 
+         ? "<a href='ordem_pedido.php' class='btn'>Ver pedidos</a>"
+         : "<a class='btn' data-disabled >Ver pedidos</a>"
+      ?>
+
    </div>
 
    <div class="box">
