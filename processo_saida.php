@@ -1,6 +1,7 @@
 <?php
 
 include __DIR__ . './components/connect.php';
+include_once __DIR__ . './functions/gerando-id-unico.php';
 
 @session_start();
 
@@ -34,9 +35,11 @@ if(isset($_POST['submit'])){
       if($address == ''){
          $message[] = 'por favor, adicione o seu endereço!';
       }else{
+
+         $idUnico = gerandoIdUnico();
          
-         $insert_order = $conn->prepare("INSERT INTO `pedidos`(user_id, nome, contacto, email, metodo, endereço, total_produtos, total_preço, estado_pagamento) VALUES(?,?,?,?,?,?,?,?, 1)");
-         $insert_order->execute([$user_id, $name, $number, $email, $method, $address, $total_products, $total_price]);
+         $insert_order = $conn->prepare("INSERT INTO `pedidos`(id, user_id, nome, contacto, email, metodo, endereço, total_produtos, total_preço, estado_pagamento) VALUES(?,?,?,?,?,?,?,?,?, 1)");
+         $insert_order->execute([$idUnico, $user_id, $name, $number, $email, $method, $address, $total_products, $total_price]);
 
          $delete_cart = $conn->prepare("DELETE FROM `compras` WHERE user_id = ?");
          $delete_cart->execute([$user_id]);
