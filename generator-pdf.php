@@ -3,7 +3,7 @@
 require_once __DIR__ . './components/connect.php';
 require_once __DIR__ . './vendor/autoload.php';
 
-$idPedido = 'fb0342f3-6ea7-4f62-bcba-0b1ffa12d841'; //isset($_POST['idPedido']) ? $_POST['idPedido'] : false;
+$idPedido =  isset($_POST['idPedido']) ? $_POST['idPedido'] : false;
 if(!$idPedido) return;
 
 $stmt = $conn->prepare("SELECT * FROM pedidos WHERE id = ? LIMIT 1");
@@ -12,6 +12,9 @@ $stmt->execute([$idPedido]);
 if($stmt->rowCount() > 0){
     $dadosPedido = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $dadosHTML = '';
+} else {
+    header('location: ./pedido.php');
+    return false;
 }
 
 foreach ($dadosPedido as $dado) {
@@ -23,9 +26,7 @@ foreach ($dadosPedido as $dado) {
     ";
 }
 
-
-// return;
-
+// PDF
 
 use Dompdf\Dompdf;
 $dompdf = new Dompdf();
