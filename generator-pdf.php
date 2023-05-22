@@ -3,7 +3,8 @@
 require_once __DIR__ . './components/connect.php';
 require_once __DIR__ . './vendor/autoload.php';
 
-$idPedido =  isset($_POST['idPedido']) ? $_POST['idPedido'] : false;
+$idPedido =  isset($_POST['idPedido']) ? $_POST['idPedido'] : '4f8536cc-0530-4591-9f3b-ad30d3d44034';
+
 if(!$idPedido) return;
 
 $stmt = $conn->prepare("SELECT * FROM pedidos WHERE id = ? LIMIT 1");
@@ -12,6 +13,7 @@ $stmt->execute([$idPedido]);
 if($stmt->rowCount() > 0){
     $dadosPedido = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $dadosHTML = '';
+
 } else {
     header('location: ./pedido.php');
     return false;
@@ -20,7 +22,7 @@ if($stmt->rowCount() > 0){
 foreach ($dadosPedido as $dado) {
     $dadosHTML .= "
         <tr>
-            <td>{$dado['nome']}</td>
+            <td>{$dado['total_produtos']}</td>
             <td>{$dado['total_preço']},00 kz</td>
         </tr>
     ";

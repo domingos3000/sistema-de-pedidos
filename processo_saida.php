@@ -92,27 +92,40 @@ if(isset($_POST['submit'])){
       <h3>item do carrinho</h3>
       <?php
          $grand_total = 0;
-         $cart_items[] = '';
+         $cart_items = [];
          $select_cart = $conn->prepare("SELECT * FROM `compras` WHERE user_id = ?");
          $select_cart->execute([$user_id]);
-         if($select_cart->rowCount() > 0){
-            while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
-               $cart_items[] = $fetch_cart['nome'].' ('.$fetch_cart['preço'].' x '. $fetch_cart['quantidade'].') - ';
-               $total_products = implode($cart_items);
-               $grand_total += ($fetch_cart['preço'] * $fetch_cart['quantidade']);
-      ?>
-      <p><span class="name"><?= $fetch_cart['nome']; ?></span><span class="price">Kz<?= $fetch_cart['preço']; ?> x <?= $fetch_cart['quantidade']; ?></span></p>
-      <?php
-            }
-         }else{
-            echo '<p class="empty">O seu carrinho está vazio!</p>';
-         }
-      ?>
-      <p class="grand-total"><span class="name">total :</span><span class="price">Kz<?= $grand_total; ?></span></p>
+
+         if($select_cart->rowCount() > 0):
+            $fetch_cart = $select_cart->fetchAll(PDO::FETCH_ASSOC);
+            $grand_total = 0;
+            $total_products = array();
+
+            foreach ($fetch_cart as $cart):
+               $grand_total += $cart['preço'] * $cart['quantidade'];
+
+               $total_products[] = ['pedido' => [
+                  'nome' => $cart['nome'],
+                  'qtnd' => $cart['quantidade'],
+                  'preco' => $cart['preço'],
+                  'subtotal' => $cart['quantidade'] * $cart['preço']
+              ]];
+         ?>
+            <p><span class="name"><?= $cart['nome']; ?></span><span class="price">Kz <?= $cart['preço']; ?> x <?= $cart['quantidade']; ?></span></p>
+         
+         <?php
+               endforeach;
+               $total_products = json_encode($total_products);
+            else:
+               echo '<p class="empty">O seu carrinho está vazio!</p>';
+            endif;
+         ?>
+
+      <p class="grand-total"><span class="name">total:</span><span class="price">Kz <?= $grand_total; ?></span></p>
       <a href="carrinho.php" class="btn">ver o cartão</a>
    </div>
 
-   <input type="hidden" name="total_products" value="<?= $total_products; ?>">
+   <input type="hidden" name="total_products" value='<?= $total_products; ?>' >
    <input type="hidden" name="total_price" value="<?= $grand_total; ?>" value="">
    <input type="hidden" name="name" value="<?= $fetch_profile['nome'] ?>">
    <input type="hidden" name="number" value="<?= $fetch_profile['contacto'] ?>">

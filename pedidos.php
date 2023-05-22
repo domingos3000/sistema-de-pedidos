@@ -63,7 +63,7 @@ if(isset($_SESSION['user_id'])){
       <p>Número : <span><?= $fetch_orders['contacto']; ?></span></p>
       <p>Endereço : <span><?= $fetch_orders['endereço']; ?></span></p>
       <p>Metodo de pagamento : <span><?= $fetch_orders['metodo']; ?></span></p>
-      <p>Seu pedido : <span><?= $fetch_orders['total_produtos']; ?></span></p>
+      <p>Seu pedido : <span></span></p>
       <p>Preço total : <span>Kz<?= $fetch_orders['total_preço']; ?></span></p>
 
       <p>Estado do pagamento : <span style="color:<?php ?>"><?= pegarEstado($fetch_orders['estado_pagamento']); ?></span> </p>
