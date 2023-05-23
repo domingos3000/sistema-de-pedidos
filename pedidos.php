@@ -115,20 +115,9 @@ if(isset($_SESSION['user_id'])){
 
 
 
-
-
-
-
-
-
-
 <!-- seção de rodapé começa -->
 <?php include 'components/footer.php'; ?>
 <!-- seção de rodapé termina -->
-
-
-
-
 
 
 <!-- link de arquivo js personalizado -->
