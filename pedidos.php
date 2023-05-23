@@ -33,7 +33,9 @@ if(isset($_SESSION['user_id'])){
 <body>
    
 <!-- seção de cabeçalho começa -->
-<?php include 'components/usuario_cabeçalho.php'; ?>
+<?php include __DIR__ . './components/usuario_cabeçalho.php'; ?>
+
+
 <!-- seção de cabeçalho termina -->
 
 <div class="heading">
@@ -42,6 +44,8 @@ if(isset($_SESSION['user_id'])){
 </div>
 
 <section class="orders">
+    
+   <?php include_once __DIR__ . './components/html_mensagens_flash.php'; ?>
 
    <h1 class="titulo">Teus pedidos</h1>
 
@@ -86,16 +90,23 @@ if(isset($_SESSION['user_id'])){
 
       <?php endif; ?>
 
-      <?php if($fetch_orders['confirmacao_cliente'] != 'true' && ($fetch_orders['estado_pagamento'] == '2') || $fetch_orders['estado_pagamento'] == '3'): ?>
+      <?php 
+      
+         if(($fetch_orders['confirmacao_cliente'] != 'true' AND $fetch_orders['estado_pagamento'] != '0') AND  $fetch_orders['estado_pagamento'] != '1'): ?>
             <a class="btn-cancelar-pedido ok" href="functions/confirmar_pedido.php?id_pedido=<?= $fetch_orders['id']; ?>">
                   Confirmar como recebido
             </a>
-
-            
       <?php endif; ?>
+
+      <?php
+         if($fetch_orders['estado_pagamento'] != '0'):
+      ?>
+
       <a class="btn-cancelar-pedido ok" href="generator-pdf.php?idPedido=<?= $fetch_orders['id']; ?>">
                   Baixar comprovativo
       </a>
+
+      <?php endif; ?>
    </div>
 
    

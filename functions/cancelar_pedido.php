@@ -1,5 +1,5 @@
 <?php
-
+@session_start();
 @include_once __DIR__ . './../components/connect.php';
 
 $id_pedido = $_GET['id_pedido'];
@@ -18,9 +18,11 @@ if ($procurar_pedido->rowCount() > 0) {
         $sql_cancelar = $conn->prepare("UPDATE pedidos SET estado_pagamento = '0' WHERE id = ?");
         $sql_cancelar->bindValue(1, $id_pedido);
         $sql_cancelar->execute();
+        $_SESSION["mensagens"][] = 'Pedido cancelado com sucesso!';
         header('location: ../pedidos.php');
     }
 
 } else {
-    echo "Erro na consulta";
+    $_SESSION["mensagens"][] = 'Erro interno! Iremos resolve-lo o mais breve possível.';
+    header('location: ../pedidos.php');
 }
