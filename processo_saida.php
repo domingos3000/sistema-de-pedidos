@@ -106,7 +106,7 @@ if(isset($_POST['submit'])){
 
                $total_products[] = ['pedido' => [
                   'nome' => $cart['nome'],
-                  'qtnd' => $cart['quantidade'],
+                  'qntd' => $cart['quantidade'],
                   'preco' => $cart['preço'],
                   'subtotal' => $cart['quantidade'] * $cart['preço']
               ]];

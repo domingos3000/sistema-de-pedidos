@@ -48,13 +48,16 @@ if(isset($_SESSION['user_id'])){
    <div class="box-container">
 
    <?php
-      if($user_id == ''){
+      if($user_id == ''):
          echo '<p class="empty">por favor inicie a sessão antes, para visualizar os pedidos</p>';
-      }else{
+      else:
          $select_orders = $conn->prepare("SELECT * FROM `pedidos` WHERE user_id = ?");
          $select_orders->execute([$user_id]);
-         if($select_orders->rowCount() > 0){
-            while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
+         $all_fetch_orders = $select_orders->fetchAll(PDO::FETCH_ASSOC);
+
+         if(count($all_fetch_orders) > 0):
+            foreach($all_fetch_orders as $fetch_orders):
+               $all_produts = json_decode($fetch_orders['total_produtos'], true);
    ?>
    <div class="box">
       <p>Data : <span><?= $fetch_orders['data']; ?></span></p>
@@ -63,8 +66,16 @@ if(isset($_SESSION['user_id'])){
       <p>Número : <span><?= $fetch_orders['contacto']; ?></span></p>
       <p>Endereço : <span><?= $fetch_orders['endereço']; ?></span></p>
       <p>Metodo de pagamento : <span><?= $fetch_orders['metodo']; ?></span></p>
-      <p>Seu pedido : <span></span></p>
-      <p>Preço total : <span>Kz<?= $fetch_orders['total_preço']; ?></span></p>
+      <p>Seu pedido : <span>
+         <?php
+            foreach($all_produts as $product):
+               $produto = $product['pedido'];
+               echo "{$produto['nome']} ({$produto['preco']} kz x {$produto['qntd']}), \n";
+            endforeach;
+         ?>
+
+      </span></p>
+      <p>Preço total : <span>Kz <?= $fetch_orders['total_preço']; ?></span></p>
 
       <p>Estado do pagamento : <span style="color:<?php ?>"><?= pegarEstado($fetch_orders['estado_pagamento']); ?></span> </p>
       
@@ -75,22 +86,27 @@ if(isset($_SESSION['user_id'])){
 
       <?php endif; ?>
 
-      <?php if($fetch_orders['confirmacao_cliente'] != 'true' && $fetch_orders['estado_pagamento'] == '2'): ?>
+      <?php if($fetch_orders['confirmacao_cliente'] != 'true' && ($fetch_orders['estado_pagamento'] == '2') || $fetch_orders['estado_pagamento'] == '3'): ?>
             <a class="btn-cancelar-pedido ok" href="functions/confirmar_pedido.php?id_pedido=<?= $fetch_orders['id']; ?>">
                   Confirmar como recebido
             </a>
-         <?php endif; ?>
+
+            
+      <?php endif; ?>
+      <a class="btn-cancelar-pedido ok" href="generator-pdf.php?idPedido=<?= $fetch_orders['id']; ?>">
+                  Baixar comprovativo
+      </a>
    </div>
 
    
 
 
    <?php
-      }
-      }else{
-         echo '<p class="empty">nenhum pedido feito ainda!</p>';
-      }
-      }
+         endforeach;
+         else:
+            echo '<p class="empty">nenhum pedido feito ainda!</p>';
+         endif;
+      endif;
    ?>
 
    </div>

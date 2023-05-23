@@ -8,7 +8,7 @@ while ($a <= 10) {
     
     $cart_items[] = ['produto' => [
         'nome' => "$a",
-        'qtnd' => "$a",
+        'qntd' => "$a",
         'valor' => "$a"
     ]];
 

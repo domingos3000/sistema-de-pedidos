@@ -4,7 +4,10 @@ include_once __DIR__ . './../components/connect.php';
 
 $id_pedido = isset($_GET['id_pedido']) ? $_GET['id_pedido'] : null;
 
-if(!$id_pedido): header('location: ../pedidos.php'); return false; endif;
+if(!$id_pedido): 
+    header('location: ../pedidos.php'); 
+    return false; 
+endif;
 
 $procurar_pedido = $conn->prepare("SELECT * FROM pedidos WHERE id = ?");
 $procurar_pedido->bindValue(1, $id_pedido);
