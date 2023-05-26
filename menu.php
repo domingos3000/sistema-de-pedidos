@@ -57,7 +57,7 @@ include 'components/add_carrinho.php';
             foreach($fetch_products_all as $fetch_products):
                $disponivel = $fetch_products['disponivel'] > 0 ? true : false;
       ?>
-      <form action="" method="post" class="box">
+      <form action="" method="post" class="box <?= $disponivel ? '' : 'disabled' ?>" >
          <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
          <input type="hidden" name="name" value="<?= $fetch_products['nome']; ?>">
          <input type="hidden" name="price" value="<?= $fetch_products['preço']; ?>">
@@ -69,7 +69,7 @@ include 'components/add_carrinho.php';
          <div class="name"><?= $fetch_products['nome']; ?></div>
          <div class="flex">
             <div class="price"><span>KZ </span><?= number_format($fetch_products['preço'], 2, ",", ".") ?></div>
-            <input required type="number" name="qty" class="qty" min="<?= $disponivel ? "1" : "0" ?>" max="<?= $fetch_products['disponivel']; ?>" value="1" maxlength="2">
+            <input required type="number" name="qty" class="qty" min="<?= $disponivel ? "1" : "0" ?>" max="<?= $fetch_products['disponivel']; ?>" value="<?= $disponivel ? "1" : "0" ?>" maxlength="2">
          </div>
       </form>
       <?php

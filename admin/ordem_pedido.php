@@ -106,6 +106,7 @@ if(isset($_GET['filter'])){
          echo "<p class='empty'>Nenhum dado encontrado!</p>";
       else:
       foreach ($dados_filtrados as $dados):
+         $all_produts = json_decode($dados['total_produtos'], true);
    ?>
    <div class="box">
       <p> Usuario id : <span><?= $dados['user_id']; ?></span> </p>
@@ -114,8 +115,17 @@ if(isset($_GET['filter'])){
       <p> Email : <span><?= $dados['email']; ?></span> </p>
       <p> Número : <span><?= $dados['contacto']; ?></span> </p>
       <p> Endereço : <span><?= $dados['endereço']; ?></span> </p>
-      <p> Produtos total : <span><?= $dados['total_produtos']; ?></span> </p>
-      <p> Preço total : <span>Kz <?= $dados['total_preço']; ?></span> </p>
+      <p> Produtos total : <span>
+
+      <?php
+            foreach($all_produts as $product):
+               $produto = $product['pedido'];
+               echo "{$produto['nome']} ({$produto['preco']} kz x {$produto['qntd']}), \n";
+            endforeach;
+      ?>
+
+      </span> </p>
+      <p> Preço total : <span>Kz <?= number_format($dados['total_preço'], 2, ",", ".") ; ?></span> </p>
       <p> Metodo de pagamento : <span><?= $dados['metodo']; ?></span> </p>
       <form action="" method="POST">
          <input type="hidden" name="order_id" value="<?= $dados['id']; ?>">

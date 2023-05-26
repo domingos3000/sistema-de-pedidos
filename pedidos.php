@@ -79,7 +79,7 @@ if(isset($_SESSION['user_id'])){
          ?>
 
       </span></p>
-      <p>Preço total : <span>Kz <?= $fetch_orders['total_preço']; ?></span></p>
+      <p>Preço total : <span>Kz <?= number_format($fetch_orders['total_preço'], 2, ",", ".") ; ?></span></p>
 
       <p>Estado do pagamento : <span style="color:<?php ?>"><?= pegarEstado($fetch_orders['estado_pagamento']); ?></span> </p>
       

@@ -64,6 +64,23 @@ if(!isset($admin_id)){
 
    <div class="box">
       <?php
+         $total_process = 0;
+         $select_process = $conn->prepare("SELECT * FROM `pedidos` WHERE estado_pagamento = ?");
+         $select_process->execute(['2']);
+         $count_process = $select_process->rowCount();
+      ?>
+      <h3> <?= $count_process; ?> </h3>
+      <p>Total em processo</p>
+      
+      <?= $count_process > 0
+         ? "<a href='ordem_pedido.php?filter=2' class='btn'>Ver pedidos</a>"
+         : "<a  class='btn' data-disabled >Ver pedidos</a>"
+      ?>
+
+   </div>
+
+   <div class="box">
+      <?php
          $total_completes = 0;
          $select_completes = $conn->prepare("SELECT * FROM `pedidos` WHERE estado_pagamento = ?");
          $select_completes->execute(['3']);
