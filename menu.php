@@ -52,8 +52,10 @@ include 'components/add_carrinho.php';
       <?php
          $select_products = $conn->prepare("SELECT * FROM `produtos`");
          $select_products->execute();
-         if($select_products->rowCount() > 0){
-            while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){
+         if($select_products->rowCount() > 0):
+            $fetch_products_all = $select_products->fetchAll(PDO::FETCH_ASSOC);
+            foreach($fetch_products_all as $fetch_products):
+               $disponivel = $fetch_products['disponivel'] > 0 ? true : false;
       ?>
       <form action="" method="post" class="box">
          <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
@@ -62,19 +64,19 @@ include 'components/add_carrinho.php';
          <input type="hidden" name="image" value="<?= $fetch_products['imagem']; ?>">
          <a href="visualização.php?pid=<?= $fetch_products['id']; ?>" class="fas fa-eye"></a>
          <button type="submit" class="fas fa-shopping-cart" name="add_to_cart"></button>
-         <img src="imagem_editada/<?= $fetch_products['imagem']; ?>" alt="">
+         <img src="imagem_editada/<?= $disponivel ? $fetch_products['imagem'] : 'indisponivel_2.jpg'; ?>" alt="">
          <a href="categoria.php?category=<?= $fetch_products['categoria']; ?>" class="cat"><?= $fetch_products['categoria']; ?></a>
          <div class="name"><?= $fetch_products['nome']; ?></div>
          <div class="flex">
-            <div class="price"><span>Kz</span><?= $fetch_products['preço']; ?></div>
-            <input type="number" name="qty" class="qty" min="1" max="99" value="1" maxlength="2"">
+            <div class="price"><span>KZ </span><?= number_format($fetch_products['preço'], 2, ",", ".") ?></div>
+            <input required type="number" name="qty" class="qty" min="<?= $disponivel ? "1" : "0" ?>" max="<?= $fetch_products['disponivel']; ?>" value="1" maxlength="2">
          </div>
       </form>
       <?php
-            }
-         }else{
+            endforeach;
+         else:
             echo '<p class="empty">nenhum produto adicionado ainda!</p>';
-         }
+         endif;
       ?>
 
    </div>
