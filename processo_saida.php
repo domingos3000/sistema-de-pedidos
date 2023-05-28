@@ -33,7 +33,7 @@ if(isset($_POST['submit'])){
    if($check_cart->rowCount() > 0){
 
       if($address == ''){
-         $message[] = 'por favor, adicione o seu endereço!';
+         $_SESSION['mensagens'][] = 'por favor, adicione o seu endereço!';
       }else{
 
          $idUnico = gerandoIdUnico();
@@ -41,14 +41,17 @@ if(isset($_POST['submit'])){
          $insert_order = $conn->prepare("INSERT INTO `pedidos`(id, user_id, nome, contacto, email, metodo, endereço, total_produtos, total_preço, estado_pagamento) VALUES(?,?,?,?,?,?,?,?,?, 1)");
          $insert_order->execute([$idUnico, $user_id, $name, $number, $email, $method, $address, $total_products, $total_price]);
 
+         // $delete_cart = $conn->prepare("UPDATE `produtos` SET `disponivel` = ? WHERE `id` = ?");
+         // $delete_cart->execute([$user_id]);
+
          $delete_cart = $conn->prepare("DELETE FROM `compras` WHERE user_id = ?");
          $delete_cart->execute([$user_id]);
 
-         $message[] = 'pedido feito com sucesso!';
+         $_SESSION['mensagens'][] = 'pedido feito com sucesso!';
       }
       
    }else{
-      $message[] = 'seu carrinho está vazio';
+      $_SESSION['mensagens'][] = 'seu carrinho está vazio';
    }
 
 }
@@ -74,7 +77,10 @@ if(isset($_POST['submit'])){
 <body>
    
 <!-- seção de cabeçalho começa -->
-<?php include 'components/usuario_cabeçalho.php'; ?>
+<?php 
+include __DIR__ . './components/usuario_cabeçalho.php'; 
+include __DIR__ . './components/html_mensagens_flash.php';
+?>
 <!-- seção de cabeçalho termina -->
 
 <div class="heading">
@@ -105,6 +111,7 @@ if(isset($_POST['submit'])){
                $grand_total += $cart['preço'] * $cart['quantidade'];
 
                $total_products[] = ['pedido' => [
+                  'id_compra' => $cart['id'],
                   'nome' => $cart['nome'],
                   'qntd' => $cart['quantidade'],
                   'preco' => $cart['preço'],

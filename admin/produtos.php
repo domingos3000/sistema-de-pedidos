@@ -19,6 +19,9 @@ if(isset($_POST['add_product'])){
    $category = $_POST['category'];
    $category = filter_var($category, FILTER_SANITIZE_STRING);
 
+   $qntd = $_POST['qntd'];
+   $qntd = filter_var($qntd, FILTER_SANITIZE_STRING);
+
    $image = $_FILES['image']['name'];
    $image = filter_var($image, FILTER_SANITIZE_STRING);
    $image_size = $_FILES['image']['size'];
@@ -36,8 +39,8 @@ if(isset($_POST['add_product'])){
       }else{
          move_uploaded_file($image_tmp_name, $image_folder);
 
-         $insert_product = $conn->prepare("INSERT INTO `produtos`(nome, categoria, preço, imagem) VALUES(?,?,?,?)");
-         $insert_product->execute([$name, $category, $price, $image]);
+         $insert_product = $conn->prepare("INSERT INTO `produtos`(nome, categoria, preço, imagem, disponivel) VALUES(?,?,?,?,?)");
+         $insert_product->execute([$name, $category, $price, $image, $qntd]);
 
          $message[] = 'novo produto adicionado com sucesso!';
       }
@@ -89,7 +92,8 @@ if(isset($_GET['delete'])){
    <form action="" method="POST" enctype="multipart/form-data">
       <h3>Adicionar produtos</h3>
       <input type="text" required placeholder="Insira o nome do produto" name="name" maxlength="100" class="box">
-      <input type="number" min="0" max="9999999999" required placeholder="Insira o preço do produto" name="price" onkeypress="if(this.value.length == 10) return false;" class="box">
+      <input type="number" min="0" required placeholder="Insira o preço do produto" name="price" onkeypress="if(this.value.length == 10) return false;" class="box">
+      <input type="number" min="0" required placeholder="Insira a quantidade disponível" name="qntd" onkeypress="if(this.value.length == 10) return false;" class="box">
       <select name="category" class="box" required>
          <option value="" disabled selected>seleciona a categoria --</option>
          <option value="prato principal">Prato principal</option>
@@ -120,7 +124,7 @@ if(isset($_GET['delete'])){
    <div class="box">
       <img src="../imagem_editada/<?= $fetch_products['imagem']; ?>" alt="">
       <div class="flex">
-         <div class="price"><span>kz</span><?= $fetch_products['preço']; ?><span></span></div>
+         <div class="price"><span>kz </span><?= $fetch_products['preço']; ?><span></span></div>
          <div class="category"><?= $fetch_products['categoria']; ?></div>
       </div>
       <div class="name"><?= $fetch_products['nome']; ?></div>
