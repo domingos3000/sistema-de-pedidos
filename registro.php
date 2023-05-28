@@ -2,6 +2,8 @@
 
 include __DIR__ . './components/connect.php';
 include_once __DIR__ . './functions/criarNumeroDeRecuperacao.php';
+include_once __DIR__ . './functions/gerando-id-unico.php';
+
 
 @session_start();
 
@@ -12,6 +14,7 @@ if(isset($_SESSION['user_id'])){
 };
 
 if(isset($_POST['submit'])){
+
 
    $name = $_POST['name'];
    $name = filter_var($name, FILTER_SANITIZE_STRING);
@@ -36,9 +39,10 @@ if(isset($_POST['submit'])){
       }else{
 
          $numRecuperacao = gerarNumeros();
+         $idUnicoUser = gerandoIdUnico();
 
-         $insert_user = $conn->prepare("INSERT INTO `usuario`(nome, email, contacto, senha, cod_recuperar_senha) VALUES(?,?,?,?,?)");
-         $insert_user->execute([$name, $email, $number, $cpass, $numRecuperacao]);
+         $insert_user = $conn->prepare("INSERT INTO `usuario`(id, nome, email, contacto, senha, cod_recuperar_senha) VALUES(?,?,?,?,?,?)");
+         $insert_user->execute([$idUnicoUser, $name, $email, $number, $cpass, $numRecuperacao]);
          $select_user = $conn->prepare("SELECT * FROM `usuario` WHERE email = ? AND senha = ?");
          $select_user->execute([$email, $pass]);
          $row = $select_user->fetch(PDO::FETCH_ASSOC);

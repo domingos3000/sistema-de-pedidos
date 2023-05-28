@@ -13,13 +13,14 @@ if(isset($_SESSION['user_id'])){
 
 if(isset($_POST['submit'])){
 
-   $address = $_POST['flat'] .', '.$_POST['building'].', '.$_POST['area'].', '. $_POST['city'] .', '. $_POST['state'] .', '. $_POST['country'] ;
+   $address = $_POST['endereco'];
    $address = filter_var($address, FILTER_SANITIZE_STRING);
 
    $update_address = $conn->prepare("UPDATE `usuario` set endereço = ? WHERE id = ?");
    $update_address->execute([$address, $user_id]);
 
    $message[] = 'endereço salvo!';
+   header('location: processo_saida.php');
 
 }
 
@@ -49,14 +50,7 @@ if(isset($_POST['submit'])){
 
    <form action="" method="post">
       <h3>A sua morada</h3>
-      <input type="text" class="box" placeholder="Apartamento." required maxlength="50" name="flat">
-      <input type="text" class="box" placeholder="edificio." required maxlength="50" name="building">
-      <input type="text" class="box" placeholder="nome da área" required maxlength="50" name="area">
-      <!--<input type="text" class="box" placeholder="nome da cidade" required maxlength="50" name="town">-->
-      <input type="text" class="box" placeholder="nome da cidade" required maxlength="50" name="city"> 
-      <input type="text" class="box" placeholder="nome do estado" required maxlength="50" name="state">
-      <input type="text" class="box" placeholder="nome do país" required maxlength="50" name="country">
-     <!-- <input type="number" class="box" placeholder="Código PIN" required max="999999" min="0" maxlength="6" name="pin_code"> -->
+      <input type="text" class="box" placeholder="Endereço" required maxlength="50" name="endereco">
       <input type="submit" value="salvar endereço" name="submit" class="btn">
    </form>
 

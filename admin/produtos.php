@@ -1,6 +1,7 @@
 <?php
 
 include __DIR__ . './../components/connect.php';
+include __DIR__ . './../functions/gerando-id-unico.php';
 
 @session_start();
 
@@ -37,10 +38,12 @@ if(isset($_POST['add_product'])){
       if($image_size > 2000000){
          $message[] = 'O tamanho da imagem é demasiado';
       }else{
+
+         $idUnicoProduto = gerandoIdUnico();
          move_uploaded_file($image_tmp_name, $image_folder);
 
-         $insert_product = $conn->prepare("INSERT INTO `produtos`(nome, categoria, preço, imagem, disponivel) VALUES(?,?,?,?,?)");
-         $insert_product->execute([$name, $category, $price, $image, $qntd]);
+         $insert_product = $conn->prepare("INSERT INTO `produtos`(id, nome, categoria, preço, imagem, disponivel) VALUES(?,?,?,?,?,?)");
+         $insert_product->execute([$idUnicoProduto, $name, $category, $price, $image, $qntd]);
 
          $message[] = 'novo produto adicionado com sucesso!';
       }
