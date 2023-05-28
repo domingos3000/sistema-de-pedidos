@@ -58,7 +58,7 @@ CREATE TABLE `compras` (
   `quantidade` int(10) NOT NULL,
   `imagem` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,6 @@ CREATE TABLE `compras` (
 
 LOCK TABLES `compras` WRITE;
 /*!40000 ALTER TABLE `compras` DISABLE KEYS */;
-INSERT INTO `compras` VALUES (22,2,3,'kkkk',12,1,'home-img-1.png');
 /*!40000 ALTER TABLE `compras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,6 +99,31 @@ INSERT INTO `mensagem` VALUES (4,1,'Ramazani Antonio','willscottking@gmail.com',
 UNLOCK TABLES;
 
 --
+-- Table structure for table `motoboy`
+--
+
+DROP TABLE IF EXISTS `motoboy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `motoboy` (
+  `id` int(100) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(20) NOT NULL,
+  `senha` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `motoboy`
+--
+
+LOCK TABLES `motoboy` WRITE;
+/*!40000 ALTER TABLE `motoboy` DISABLE KEYS */;
+INSERT INTO `motoboy` VALUES (1,'Luciano Pedro','123');
+/*!40000 ALTER TABLE `motoboy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `pedidos`
 --
 
@@ -107,21 +131,20 @@ DROP TABLE IF EXISTS `pedidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pedidos` (
-  `id` int(100) NOT NULL AUTO_INCREMENT,
+  `id` varchar(255) NOT NULL,
   `user_id` int(100) NOT NULL,
   `nome` varchar(20) NOT NULL,
   `contacto` varchar(10) NOT NULL,
   `email` varchar(50) NOT NULL,
   `metodo` varchar(50) NOT NULL,
   `endereço` varchar(500) NOT NULL,
-  `total_produtos` varchar(1000) NOT NULL,
+  `total_produtos` text NOT NULL,
   `total_preço` int(100) NOT NULL,
   `data` date NOT NULL DEFAULT current_timestamp(),
   `estado_pagamento` varchar(20) NOT NULL DEFAULT '1',
   `confirmacao_cliente` varchar(20) DEFAULT 'false',
-  `confirmacao_motoboy` varchar(20) DEFAULT 'false',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +153,7 @@ CREATE TABLE `pedidos` (
 
 LOCK TABLES `pedidos` WRITE;
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
-INSERT INTO `pedidos` VALUES (14,3,'Domingos','944895118','domingosnkulajw@gmail.com','cartão de crédito','45, 74, Hoji Ya Henda, Luanda, Cazenga, Angola','kkkk (12 x 1) - ',12,'2023-05-05','3','true','false'),(16,3,'Domingos','944895118','domingosnkulajw@gmail.com','E-kwanza','45, 74, Hoji Ya Henda, Luanda, Cazenga, Angola','kkkk (12 x 1) - ',12,'2023-05-10','0','true','false'),(17,6,'Domingos Pedro','89587485','novoemail29102001@gmail.com','dinheiro na entrega',' ,  ,  ,  ,  ,  ','kkkk (12 x 1) - ',12,'2023-05-14','0','false','false'),(18,6,'Domingos Pedro','89587485','novoemail29102001@gmail.com','cartão de crédito',' ,  ,  ,  ,  ,  ','kkkk (12 x 79) - ',948,'2023-05-14','2','true','false');
+INSERT INTO `pedidos` VALUES ('270c7c68-d629-4d41-9592-17e30c02db17',1,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','Paypal','45, 74, Bloco B, Luanda, Luanda, Angola','[{\"pedido\":{\"id_compra\":9,\"nome\":\"Pizza\",\"qntd\":5,\"preco\":2500,\"subtotal\":12500}},{\"pedido\":{\"id_compra\":10,\"nome\":\"Hamburguer\",\"qntd\":10,\"preco\":2000,\"subtotal\":20000}},{\"pedido\":{\"id_compra\":11,\"nome\":\"Banana\",\"qntd\":7,\"preco\":200,\"subtotal\":1400}}]',33900,'2023-05-28','1','false'),('5710b4de-534e-4e46-a7ee-be90efd4e643',1,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','Paypal','45, 74, Bloco B, Luanda, Luanda, Angola','[{\"pedido\":{\"id_compra\":9,\"nome\":\"Pizza\",\"qntd\":5,\"preco\":2500,\"subtotal\":12500}},{\"pedido\":{\"id_compra\":10,\"nome\":\"Hamburguer\",\"qntd\":10,\"preco\":2000,\"subtotal\":20000}},{\"pedido\":{\"id_compra\":11,\"nome\":\"Banana\",\"qntd\":7,\"preco\":200,\"subtotal\":1400}}]',33900,'2023-05-28','1','false');
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,8 +170,9 @@ CREATE TABLE `produtos` (
   `categoria` varchar(100) NOT NULL,
   `preço` int(10) NOT NULL,
   `imagem` varchar(100) NOT NULL,
+  `disponivel` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +181,7 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
-INSERT INTO `produtos` VALUES (3,'kkkk','fast food',12,'home-img-1.png');
+INSERT INTO `produtos` VALUES (3,'Pizza','sobremesa',2500,'home-img-1.png',20),(4,'Hamburguer','fast food',2000,'home-img-2.png',10),(77,'Frango grelhado','fast food',8000,'home-img-3.png',0),(79,'Banana','comida',200,'bananas-1119790_1920.jpg',400),(80,'Pao','comida',50,'eye-2274884.jpg',36);
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +202,7 @@ CREATE TABLE `usuario` (
   `cod_recuperar_senha` varchar(255) DEFAULT NULL,
   `acesso` int(1) DEFAULT 3,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,6 +211,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Domingos Nkula Pedro','novoemail29102001@gmail.com','944895118','39dfa55283318d31afe5a3ff4a0e3253e2045e43','45, 74, Bloco B, Luanda, Luanda, Angola','245262',3);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -199,4 +224,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-14 18:58:44
+-- Dump completed on 2023-05-28 12:52:53
