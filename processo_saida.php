@@ -41,8 +41,32 @@ if(isset($_POST['submit'])){
          $insert_order = $conn->prepare("INSERT INTO `pedidos`(id, user_id, nome, contacto, email, metodo, endereço, total_produtos, total_preço, estado_pagamento) VALUES(?,?,?,?,?,?,?,?,?, 1)");
          $insert_order->execute([$idUnico, $user_id, $name, $number, $email, $method, $address, $total_products, $total_price]);
 
-         // $delete_cart = $conn->prepare("UPDATE `produtos` SET `disponivel` = ? WHERE `id` = ?");
-         // $delete_cart->execute([$user_id]);
+         $select_all_pedidos = $conn->prepare("SELECT * FROM `pedidos` WHERE `id` = ?");
+
+         if( $select_all_pedidos->execute([$idUnico])):
+            $dadosDoProduto = $select_all_pedidos->fetch(PDO::FETCH_ASSOC);
+            $produtos = json_decode($dadosDoProduto['total_produtos'], true);
+
+            foreach ($produtos as $produto) {
+               $idProduto = $produto['pedido']['id_compra'];
+               $qntdProduto = intval($produto['pedido']['qntd']);
+
+               $consultarBD = $conn->prepare("SELECT * FROM `produtos` WHERE `id` = ?");
+               $consultarBD->execute([$idProduto]);
+               $produtoEncontrado = $consultarBD->fetch(PDO::FETCH_ASSOC);
+               $qntdDisponivel = intval($produtoEncontrado['disponivel']);
+
+               $qntdFinal = $qntdDisponivel - $qntdProduto;
+
+               $sql = $conn->prepare("UPDATE `produtos` SET `disponivel` = ? WHERE `id` = ?");
+               $sql->execute([$qntdFinal, $idProduto]);
+            }
+            
+         endif;
+
+         
+         // $updateQntd = $conn->prepare("UPDATE `produtos` SET `disponivel` = ? WHERE `id` = ?");
+         // $updateQntd->execute([$user_id]);
 
          $delete_cart = $conn->prepare("DELETE FROM `compras` WHERE user_id = ?");
          $delete_cart->execute([$user_id]);
@@ -111,7 +135,7 @@ include __DIR__ . './components/html_mensagens_flash.php';
                $grand_total += $cart['preço'] * $cart['quantidade'];
 
                $total_products[] = ['pedido' => [
-                  'id_compra' => $cart['id'],
+                  'id_compra' => $cart['pid'],
                   'nome' => $cart['nome'],
                   'qntd' => $cart['quantidade'],
                   'preco' => $cart['preço'],
