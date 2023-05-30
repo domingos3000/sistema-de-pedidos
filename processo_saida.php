@@ -64,10 +64,6 @@ if(isset($_POST['submit'])){
             
          endif;
 
-         
-         // $updateQntd = $conn->prepare("UPDATE `produtos` SET `disponivel` = ? WHERE `id` = ?");
-         // $updateQntd->execute([$user_id]);
-
          $delete_cart = $conn->prepare("DELETE FROM `compras` WHERE user_id = ?");
          $delete_cart->execute([$user_id]);
 
