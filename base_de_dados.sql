@@ -52,13 +52,13 @@ DROP TABLE IF EXISTS `compras`;
 CREATE TABLE `compras` (
   `id` int(100) NOT NULL AUTO_INCREMENT,
   `user_id` int(100) NOT NULL,
-  `pid` int(100) NOT NULL,
+  `pid` varchar(255) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `preço` int(10) NOT NULL,
   `quantidade` int(10) NOT NULL,
   `imagem` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,7 +153,7 @@ CREATE TABLE `pedidos` (
 
 LOCK TABLES `pedidos` WRITE;
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
-INSERT INTO `pedidos` VALUES ('270c7c68-d629-4d41-9592-17e30c02db17',1,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','Paypal','45, 74, Bloco B, Luanda, Luanda, Angola','[{\"pedido\":{\"id_compra\":9,\"nome\":\"Pizza\",\"qntd\":5,\"preco\":2500,\"subtotal\":12500}},{\"pedido\":{\"id_compra\":10,\"nome\":\"Hamburguer\",\"qntd\":10,\"preco\":2000,\"subtotal\":20000}},{\"pedido\":{\"id_compra\":11,\"nome\":\"Banana\",\"qntd\":7,\"preco\":200,\"subtotal\":1400}}]',33900,'2023-05-28','1','false'),('5710b4de-534e-4e46-a7ee-be90efd4e643',1,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','Paypal','45, 74, Bloco B, Luanda, Luanda, Angola','[{\"pedido\":{\"id_compra\":9,\"nome\":\"Pizza\",\"qntd\":5,\"preco\":2500,\"subtotal\":12500}},{\"pedido\":{\"id_compra\":10,\"nome\":\"Hamburguer\",\"qntd\":10,\"preco\":2000,\"subtotal\":20000}},{\"pedido\":{\"id_compra\":11,\"nome\":\"Banana\",\"qntd\":7,\"preco\":200,\"subtotal\":1400}}]',33900,'2023-05-28','1','false');
+INSERT INTO `pedidos` VALUES ('0a102c0b-2cfa-4a27-9e5a-e53f6e6913ae',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','Paypal','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":29,\"preco\":200,\"subtotal\":5800}},{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":5,\"preco\":500,\"subtotal\":2500}}]',8300,'2023-05-29','1','false'),('4f75e213-2ba1-4074-88f3-1e2b08cb056c',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','dinheiro na entrega','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":20,\"preco\":200,\"subtotal\":4000}},{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":3,\"preco\":500,\"subtotal\":1500}}]',5500,'2023-05-29','1','false');
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,14 +165,14 @@ DROP TABLE IF EXISTS `produtos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `produtos` (
-  `id` int(100) NOT NULL AUTO_INCREMENT,
+  `id` varchar(255) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `categoria` varchar(100) NOT NULL,
   `preço` int(10) NOT NULL,
   `imagem` varchar(100) NOT NULL,
   `disponivel` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,7 +181,7 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
-INSERT INTO `produtos` VALUES (3,'Pizza','sobremesa',2500,'home-img-1.png',20),(4,'Hamburguer','fast food',2000,'home-img-2.png',10),(77,'Frango grelhado','fast food',8000,'home-img-3.png',0),(79,'Banana','comida',200,'bananas-1119790_1920.jpg',400),(80,'Pao','comida',50,'eye-2274884.jpg',36);
+INSERT INTO `produtos` VALUES ('a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462','Peixe','comida',500,'descarregar.jfif',2),('da982c54-ae8f-4e05-85fc-65a3db7f534a','Banana','comida',200,'bananas-1119790_1920.jpg',1);
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,7 +193,7 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
-  `id` int(100) NOT NULL AUTO_INCREMENT,
+  `id` varchar(200) NOT NULL,
   `nome` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
   `contacto` varchar(10) NOT NULL,
@@ -202,7 +202,7 @@ CREATE TABLE `usuario` (
   `cod_recuperar_senha` varchar(255) DEFAULT NULL,
   `acesso` int(1) DEFAULT 3,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,7 +211,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Domingos Nkula Pedro','novoemail29102001@gmail.com','944895118','39dfa55283318d31afe5a3ff4a0e3253e2045e43','45, 74, Bloco B, Luanda, Luanda, Angola','245262',3);
+INSERT INTO `usuario` VALUES ('199270ed-7aee-4607-b36a-a9a0b89bf952','Domingos Nkula Pedro','novoemail29102001@gmail.com','944895118','39dfa55283318d31afe5a3ff4a0e3253e2045e43','Cazenga, Luanda, Angola','471664',3);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -224,4 +224,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-28 12:52:53
+-- Dump completed on 2023-05-30  6:33:00
