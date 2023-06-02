@@ -1,29 +1,12 @@
-<?php
-if(isset($mensagem)){
-   foreach($mensagem as $message){
-      echo '
-      <div class="message">
-         <span>'.$message.'</span>
-         <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-      </div>
-      ';
-   }
-}
-?>
-
 <header class="header">
 
    <section class="flex">
 
-      <a href="painel.php" class="logo">Admin<span>Painel</span></a>
+      <a href="painel.php" class="logo">Motoboy<span>Painel</span></a>
 
       <nav class="navbar">
          <a href="painel.php">Página inicial</a>
-         <a href="produtos.php">produtos</a>
-         <a href="ordem_pedido.php">Pedidos</a>
-         <a href="conta_administrador.php">admins</a>
-         <a href="contas_usuario.php">usuario</a>
-         <a href="messages.php">mensagem</a>
+         <a href="produtos.php">Pedidos</a>
       </nav>
 
       <div class="icons">
@@ -33,8 +16,8 @@ if(isset($mensagem)){
 
       <div class="profile">
          <?php
-            $select_profile = $conn->prepare("SELECT * FROM `admin` WHERE id = ?");
-            $select_profile->execute([$admin_id]);
+            $select_profile = $conn->prepare("SELECT * FROM `motoboy` WHERE id = ?");
+            $select_profile->execute([$motoboyId]);
             $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
          ?>
          <p><?= $fetch_profile['nome']; ?></p>
