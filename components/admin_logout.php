@@ -6,6 +6,6 @@ include __DIR__ . './connect.php';
 session_unset();
 session_destroy();
 
-header('location:../admin/admin_login.php');
+header('location:../');
 
 ?>

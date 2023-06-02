@@ -127,6 +127,9 @@ if(isset($_GET['filter'])){
       </span> </p>
       <p> Preço total : <span>Kz <?= number_format($dados['total_preço'], 2, ",", ".") ; ?></span> </p>
       <p> Metodo de pagamento : <span><?= $dados['metodo']; ?></span> </p>
+
+      <p> Confirmado pelo cliente : <span><?= $dados['confirmacao_cliente'] == 'true' ? 'SIM' : 'NÃO'; ?></span> </p>
+      <p> Confirmado pelo motoboy : <span><?= $dados['confirmacao_motoboy'] == 'true' ? 'SIM' : 'NÃO'; ?></span> </p>
       <form action="" method="POST">
          <input type="hidden" name="order_id" value="<?= $dados['id']; ?>">
 

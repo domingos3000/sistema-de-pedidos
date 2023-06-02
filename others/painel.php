@@ -47,7 +47,6 @@ if($redirectAtenderPedido == 'atender-pedido'){
    <div class="box">
       <h3>Bem-vindo/a!</h3>
       <p><?= $fetch_profile['nome']; ?></p>
-      <!-- <a href="editar_perfil.php" class="btn">Editar senha</a> -->
    </div>
 
    <div class="box">
