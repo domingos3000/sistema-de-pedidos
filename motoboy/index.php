@@ -23,8 +23,6 @@ if(isset($_POST['submit'])){
       header("location: {$_SERVER['PHP_SELF']}");
    }
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -59,16 +57,6 @@ if(isset($_POST['submit'])){
 </section>
 
 <!-- seção do formulário de login do administrador termina -->
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>
