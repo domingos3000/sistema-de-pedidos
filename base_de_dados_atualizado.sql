@@ -58,7 +58,7 @@ CREATE TABLE `compras` (
   `quantidade` int(10) NOT NULL,
   `imagem` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -107,8 +107,9 @@ DROP TABLE IF EXISTS `motoboy`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `motoboy` (
   `id` int(100) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(20) NOT NULL,
+  `email` varchar(20) NOT NULL,
   `senha` varchar(50) NOT NULL,
+  `nome` varchar(255) NOT NULL DEFAULT 'Motoboy',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -119,7 +120,7 @@ CREATE TABLE `motoboy` (
 
 LOCK TABLES `motoboy` WRITE;
 /*!40000 ALTER TABLE `motoboy` DISABLE KEYS */;
-INSERT INTO `motoboy` VALUES (1,'Luciano Pedro','123');
+INSERT INTO `motoboy` VALUES (1,'motoboy001@gmail.com','123','Motoboy');
 /*!40000 ALTER TABLE `motoboy` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,6 +144,7 @@ CREATE TABLE `pedidos` (
   `data` date NOT NULL DEFAULT current_timestamp(),
   `estado_pagamento` varchar(20) NOT NULL DEFAULT '1',
   `confirmacao_cliente` varchar(20) DEFAULT 'false',
+  `confirmacao_motoboy` varchar(20) DEFAULT 'false',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -153,7 +155,7 @@ CREATE TABLE `pedidos` (
 
 LOCK TABLES `pedidos` WRITE;
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
-INSERT INTO `pedidos` VALUES ('0a102c0b-2cfa-4a27-9e5a-e53f6e6913ae',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','Paypal','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":29,\"preco\":200,\"subtotal\":5800}},{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":5,\"preco\":500,\"subtotal\":2500}}]',8300,'2023-05-29','1','false'),('4f75e213-2ba1-4074-88f3-1e2b08cb056c',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','dinheiro na entrega','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":20,\"preco\":200,\"subtotal\":4000}},{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":3,\"preco\":500,\"subtotal\":1500}}]',5500,'2023-05-29','1','false');
+INSERT INTO `pedidos` VALUES ('0a102c0b-2cfa-4a27-9e5a-e53f6e6913ae',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','Paypal','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":29,\"preco\":200,\"subtotal\":5800}},{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":5,\"preco\":500,\"subtotal\":2500}}]',8300,'2023-05-29','3','true','true'),('4f75e213-2ba1-4074-88f3-1e2b08cb056c',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','dinheiro na entrega','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":20,\"preco\":200,\"subtotal\":4000}},{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":3,\"preco\":500,\"subtotal\":1500}}]',5500,'2023-05-29','0','false','false'),('5b3429f0-77a3-4301-8944-2467fc0fe172',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','dinheiro na entrega','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":2,\"preco\":500,\"subtotal\":1000}},{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":1,\"preco\":200,\"subtotal\":200}}]',1200,'2023-05-30','1','false','true');
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,7 +183,7 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
-INSERT INTO `produtos` VALUES ('a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462','Peixe','comida',500,'descarregar.jfif',2),('da982c54-ae8f-4e05-85fc-65a3db7f534a','Banana','comida',200,'bananas-1119790_1920.jpg',1);
+INSERT INTO `produtos` VALUES ('a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462','Peixe','comida',500,'descarregar.jfif',0),('da982c54-ae8f-4e05-85fc-65a3db7f534a','Banana','comida',200,'bananas-1119790_1920.jpg',0);
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,4 +226,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-30  6:33:00
+-- Dump completed on 2023-06-06 23:07:50
