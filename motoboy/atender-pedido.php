@@ -36,8 +36,8 @@ if(isset($_GET['filter'])){
 
    if($id_filter == "all"){
 
-      $sql = $conn->prepare("SELECT * FROM pedidos WHERE confirmacao_motoboy = ?");
-      $sql->execute(['false']);
+      $sql = $conn->prepare("SELECT * FROM pedidos WHERE confirmacao_motoboy = ? AND estado_pagamento != ?");
+      $sql->execute(['false', '0']);
 
       if($sql->rowCount() > 0){
       
@@ -50,8 +50,8 @@ if(isset($_GET['filter'])){
 
 } else {
    
-   $sql = $conn->prepare("SELECT * FROM pedidos WHERE confirmacao_motoboy = ?");
-   $sql->execute(['false']);
+      $sql = $conn->prepare("SELECT * FROM pedidos WHERE confirmacao_motoboy = ? AND estado_pagamento != ?");
+      $sql->execute(['false', '0']);
 
    if($sql->rowCount() > 0){
       $dados_filtrados = $sql->fetchAll(PDO::FETCH_ASSOC);
