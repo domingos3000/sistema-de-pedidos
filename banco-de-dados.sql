@@ -71,6 +71,31 @@ LOCK TABLES `compras` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `historico`
+--
+
+DROP TABLE IF EXISTS `historico`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `historico` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(255) DEFAULT NULL,
+  `pedido` varchar(255) DEFAULT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `historico`
+--
+
+LOCK TABLES `historico` WRITE;
+/*!40000 ALTER TABLE `historico` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historico` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `mensagem`
 --
 
@@ -110,6 +135,7 @@ CREATE TABLE `motoboy` (
   `email` varchar(20) NOT NULL,
   `senha` varchar(50) NOT NULL,
   `nome` varchar(255) NOT NULL DEFAULT 'Motoboy',
+  `disponivel` varchar(255) DEFAULT 'true',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -120,7 +146,7 @@ CREATE TABLE `motoboy` (
 
 LOCK TABLES `motoboy` WRITE;
 /*!40000 ALTER TABLE `motoboy` DISABLE KEYS */;
-INSERT INTO `motoboy` VALUES (1,'motoboy001@gmail.com','123','Motoboy');
+INSERT INTO `motoboy` VALUES (1,'motoboy001@gmail.com','123','Motoboy','true');
 /*!40000 ALTER TABLE `motoboy` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +181,7 @@ CREATE TABLE `pedidos` (
 
 LOCK TABLES `pedidos` WRITE;
 /*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
-INSERT INTO `pedidos` VALUES ('0a102c0b-2cfa-4a27-9e5a-e53f6e6913ae',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','Paypal','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":29,\"preco\":200,\"subtotal\":5800}},{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":5,\"preco\":500,\"subtotal\":2500}}]',8300,'2023-05-29','3','true','true'),('4f75e213-2ba1-4074-88f3-1e2b08cb056c',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','dinheiro na entrega','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":20,\"preco\":200,\"subtotal\":4000}},{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":3,\"preco\":500,\"subtotal\":1500}}]',5500,'2023-05-29','0','false','false'),('5b3429f0-77a3-4301-8944-2467fc0fe172',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','dinheiro na entrega','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":2,\"preco\":500,\"subtotal\":1000}},{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":1,\"preco\":200,\"subtotal\":200}}]',1200,'2023-05-30','1','false','true');
+INSERT INTO `pedidos` VALUES ('0a102c0b-2cfa-4a27-9e5a-e53f6e6913ae',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','Paypal','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":29,\"preco\":200,\"subtotal\":5800}},{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":5,\"preco\":500,\"subtotal\":2500}}]',8300,'2023-05-29','3','true','true'),('4f75e213-2ba1-4074-88f3-1e2b08cb056c',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','dinheiro na entrega','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":20,\"preco\":200,\"subtotal\":4000}},{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":3,\"preco\":500,\"subtotal\":1500}}]',5500,'2023-05-29','1','false','false'),('5b3429f0-77a3-4301-8944-2467fc0fe172',199270,'Domingos Nkula Pedro','944895118','novoemail29102001@gmail.com','dinheiro na entrega','Cazenga, Luanda, Angola','[{\"pedido\":{\"id_compra\":\"a6a08ec0-bbcf-49fd-89dd-2e8e1d5cf462\",\"nome\":\"Peixe\",\"qntd\":2,\"preco\":500,\"subtotal\":1000}},{\"pedido\":{\"id_compra\":\"da982c54-ae8f-4e05-85fc-65a3db7f534a\",\"nome\":\"Banana\",\"qntd\":1,\"preco\":200,\"subtotal\":200}}]',1200,'2023-05-30','1','false','false');
 /*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,4 +252,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-06 23:07:50
+-- Dump completed on 2023-06-11  6:13:03
