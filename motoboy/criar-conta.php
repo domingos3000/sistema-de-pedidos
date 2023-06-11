@@ -1,27 +1,24 @@
 <?php
 
-include __DIR__ . './../components/connect.php';
-
 @session_start();
+include_once __DIR__ . './../vendor/autoload.php';
+
+use App\Motoboy\Motoboy;
+
 
 if(isset($_POST['submit'])){
 
+   $nome = $_POST['nome'];
+   $nome = filter_var($nome, FILTER_SANITIZE_STRING);
    $email = $_POST['email'];
    $email = filter_var($email, FILTER_SANITIZE_STRING);
    $pass = $_POST['pass'];
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
 
-   $select_motoboy = $conn->prepare("SELECT * FROM `motoboy` WHERE email = ? AND senha = ? LIMIT 1");
-   $select_motoboy->execute([$email, $pass]);
+   new Motoboy($nome, $email, $pass);
    
-   if($select_motoboy->rowCount() > 0){
-      $fetch_motoboy_id = $select_motoboy->fetch(PDO::FETCH_ASSOC);
-      $_SESSION['motoboy_id'] = $fetch_motoboy_id['id'];
-
-      header("location: painel.php");
-   }else{
-      header("location: {$_SERVER['PHP_SELF']}");
-   }
+   Motoboy::register();
+   header("location: index.php");
 }
 ?>
 
@@ -45,13 +42,18 @@ if(isset($_POST['submit'])){
 
 <section class="form-container">
 
+   <?php include_once __DIR__ . './../components/html_mensagens_flash.php'; ?>
+
    <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
       <h3>Criar Conta</h3>
-      <p>predefinido nome de usuario = <span>motoboy001@gmail.com</span> & senha = <span>123</span></p>
+      <!-- <p>predefinido nome de usuario = <span>motoboy001@gmail.com</span> & senha = <span>123</span></p> -->
       
-      <input type="text" name="email" maxlength="20" required placeholder="Insira o nome de usuario" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+      <input type="text" name="nome" required placeholder="Insira o nome completo" class="box">
+      <input type="text" name="email"  required placeholder="Insira o seu email" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="pass" maxlength="20" required placeholder="Insira a senha" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="submit" value="Iniciar a sessão" name="submit" class="btn">
+      <input type="submit" value="Criar" name="submit" class="btn">
+      <p><a href="index.php">Iniciar sessão</a></p>
+
    </form>
 
 </section>

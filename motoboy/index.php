@@ -1,8 +1,11 @@
 <?php
 
-include __DIR__ . './../components/connect.php';
-
 @session_start();
+include_once __DIR__ . './../vendor/autoload.php';
+
+use App\Motoboy\Motoboy;
+
+if(isset($_SESSION['motoboy_id'])) header("location: painel.php");
 
 if(isset($_POST['submit'])){
 
@@ -10,14 +13,8 @@ if(isset($_POST['submit'])){
    $email = filter_var($email, FILTER_SANITIZE_STRING);
    $pass = $_POST['pass'];
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
-
-   $select_motoboy = $conn->prepare("SELECT * FROM `motoboy` WHERE email = ? AND senha = ? LIMIT 1");
-   $select_motoboy->execute([$email, $pass]);
    
-   if($select_motoboy->rowCount() > 0){
-      $fetch_motoboy_id = $select_motoboy->fetch(PDO::FETCH_ASSOC);
-      $_SESSION['motoboy_id'] = $fetch_motoboy_id['id'];
-
+   if(Motoboy::login($email, $pass)){
       header("location: painel.php");
    }else{
       header("location: {$_SERVER['PHP_SELF']}");
@@ -47,11 +44,12 @@ if(isset($_POST['submit'])){
 
    <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
       <h3>Iniciar sessão</h3>
-      <p>predefinido nome de usuario = <span>motoboy001@gmail.com</span> & senha = <span>123</span></p>
       
       <input type="text" name="email" maxlength="20" required placeholder="Insira o nome de usuario" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="pass" maxlength="20" required placeholder="Insira a senha" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="submit" value="Iniciar a sessão" name="submit" class="btn">
+      
+      <p><a href="criar-conta.php">Criar uma nova conta</a></p>
    </form>
 
 </section>
