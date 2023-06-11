@@ -81,6 +81,3 @@ class Motoboy {
     }
 
 }
-
-
-print_r(Motoboy::findMyTask('ed3003bc-51e5-4e7e-8f13-37577d23fe1f'));

@@ -1,5 +1,9 @@
 <?php
 
+include_once __DIR__ . './../vendor/autoload.php';
+
+use App\Motoboy\Motoboy;
+
 include __DIR__ . './../components/connect.php';
 include_once __DIR__ . './../functions/pegarEstado.php';
 
@@ -36,29 +40,12 @@ if(isset($_GET['filter'])){
 
    if($id_filter == "all"){
 
-      $sql = $conn->prepare("SELECT * FROM pedidos WHERE confirmacao_motoboy = ? AND estado_pagamento != ?");
-      $sql->execute(['false', '0']);
-
-      if($sql->rowCount() > 0){
-      
-         $dados_filtrados = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-      } else {
-         $dados_filtrados = false;
-      }
+      $dados_filtrados = Motoboy::findMyTask($_SESSION['motoboy_id']);
+   
    }
 
 } else {
-   
-      $sql = $conn->prepare("SELECT * FROM pedidos WHERE confirmacao_motoboy = ? AND estado_pagamento != ?");
-      $sql->execute(['false', '0']);
-
-   if($sql->rowCount() > 0){
-      $dados_filtrados = $sql->fetchAll(PDO::FETCH_ASSOC);
-   }
-    else {
-      $dados_filtrados = false;
-   }
+      $dados_filtrados = Motoboy::findMyTask($_SESSION['motoboy_id']);
 }
 
 ?>
