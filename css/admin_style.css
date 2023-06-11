@@ -54,6 +54,24 @@ section{
    padding:2rem;
 }
 
+.form_select_motoboy {
+   background-color: #c0e3ff;
+   padding: 1rem;
+   justify-content: space-between;
+   display: flex;
+   border-radius: 4px;
+}
+
+.select_motoboy {
+   background: none;
+}
+
+.submit_motoboy {
+   background-color: #03A9F4;
+   padding: 1rem;
+   border-radius: 4px;
+}
+
 .btn,
 .delete-btn,
 .option-btn{

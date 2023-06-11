@@ -1,15 +1,26 @@
 <?php
 
-include __DIR__ . './../components/connect.php';
+include_once __DIR__ . './../vendor/autoload.php';
+use App\Motoboy\Motoboy;
+
+include_once __DIR__ . './../components/connect.php';
 include_once __DIR__ . './../functions/pegarEstado.php';
 
 @session_start();
+
+$motoboyDisponiveis = Motoboy::findAvailable();
 
 $admin_id = $_SESSION['admin_id'];
 
 if(!isset($admin_id)){
    header('location:admin_login.php');
 };
+
+if(isset($_POST['select-motoboy'])){
+
+   Motoboy::selectMotoboy($_POST['select_motoboy'], $_POST['id-pedido']);
+   header("location: {$_SERVER['PHP_SELF']}");
+}
 
 if(isset($_POST['update_payment'])){
 
@@ -108,7 +119,29 @@ if(isset($_GET['filter'])){
       foreach ($dados_filtrados as $dados):
          $all_produts = json_decode($dados['total_produtos'], true);
    ?>
+
+
    <div class="box">
+      
+   <?php  if($dados['motoboy_id'] == 'false'): ?>
+
+         <form class="form_select_motoboy" method="POST">
+            <select name="select_motoboy" class="select_motoboy">
+               <option disabled selected>Selecionar motoboy</option>
+               
+               <?php foreach($motoboyDisponiveis as $motoboy): ?>
+                  <option value="<?= $motoboy['id']; ?>"> <?= $motoboy['nome']; ?> </option>
+               <?php endforeach; ?>
+               
+               <input type="hidden" name="id-pedido" value="<?= $dados['id'] ?>">
+            </select>
+
+            <input type="submit" name="select-motoboy" value="Submeter" class="submit_motoboy">
+         </form>
+
+   <?php endif; ?>
+
+
       <p> Usuario id : <span><?= $dados['user_id']; ?></span> </p>
       <p> Data : <span><?= $dados['data']; ?></span> </p>
       <p> Nome : <span><?= $dados['nome']; ?></span> </p>

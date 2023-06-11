@@ -1,8 +1,8 @@
 <?php
-
-include __DIR__ . './components/connect.php';
-
 @session_start();
+
+include_once __DIR__ . './components/connect.php';
+
 
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];

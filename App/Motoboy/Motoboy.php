@@ -4,7 +4,7 @@ namespace App\Motoboy;
 
 // @session_start();
 
-include_once __DIR__ . './../../components/connect.php';
+include_once __DIR__ . './../db/db.php';
 include_once __DIR__ . './../../functions/gerando-id-unico.php';
 
 class Motoboy {
@@ -47,4 +47,40 @@ class Motoboy {
 
     }
 
+    public static function findAvailable(){
+        $stmt = db()->prepare("SELECT * FROM `motoboy` WHERE `disponivel` = ?");
+        $stmt->execute(['true']);
+
+        if($stmt->rowCount() > 0){
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+    }
+
+    public static function selectMotoboy($idMotoboy, $idPedido){
+
+            if(empty($idMotoboy) || empty($idPedido)) return false;
+ 
+            $stmt = db()->prepare("UPDATE `motoboy` SET `disponivel` = ? WHERE `id` = ?");
+            
+            if($stmt->execute(["false", $idMotoboy])){
+                $stmt = db()->prepare("UPDATE `pedidos` SET `motoboy_id` = ? WHERE `id` = ?");
+                $stmt->execute([$idMotoboy, $idPedido]);
+            }
+    }
+
+    public static function findMyTask($idMotoboy){
+
+        $stmt = db()->prepare("SELECT * FROM pedidos WHERE motoboy_id = ?");
+        $stmt->execute([$idMotoboy]);
+
+        if($stmt->rowCount() > 0){
+            $pedidos = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $pedidos;
+        }
+    }
+
 }
+
+
+print_r(Motoboy::findMyTask('ed3003bc-51e5-4e7e-8f13-37577d23fe1f'));
