@@ -21,16 +21,13 @@ if(isset($_POST['update_payment'])){
       header('location: painel.php?redirect=atender-pedido');
       return false;
    }
-   
 
    $pedidos_id = $_POST['order_id'];
-   $payment_status = $_POST['payment_status'];
-   
-   $update_status = $conn->prepare("UPDATE `pedidos` SET confirmacao_motoboy = ? WHERE id = ?");
-   $update_status->execute([$payment_status, $pedidos_id]);
+   $pedidos_id = $_POST['payment_status'];
+
+   Motoboy::confirmPedido($pedidos_id, $pedidos_id);
 
    header('location: painel.php?redirect=atender-pedido');
-
 }
 
 

@@ -80,4 +80,26 @@ class Motoboy {
         }
     }
 
+    public static function confirmPedido($idPedido, $status){
+
+        $findMotoboy = db()->prepare("SELECT * FROM `pedidos` WHERE `id` = ?");
+        $findMotoboy->execute([$idPedido]);
+
+        if($findMotoboy->rowCount() > 0){
+            
+            $fetchData = $findMotoboy->fetch(\PDO::FETCH_ASSOC);
+            $motoboyId = $fetchData['motoboy_id'];
+        
+            $update_status = db()->prepare("UPDATE `pedidos` SET confirmacao_motoboy = ? WHERE id = ?");
+            $update_status->execute([$status, $idPedido]);
+        
+            $stmt = db()->prepare("UPDATE `motoboy` SET `disponivel` = ? WHERE `id` = ?");
+            $stmt->execute(["true", $motoboyId]);
+    
+        }
+    }
+
 }
+
+
+print_r(Motoboy::confirmPedido("0a102c0b-2cfa-4a27-9e5a-e53f6e6913ae", "true"));
