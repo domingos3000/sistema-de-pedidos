@@ -102,4 +102,4 @@ class Motoboy {
 }
 
 
-print_r(Motoboy::confirmPedido("0a102c0b-2cfa-4a27-9e5a-e53f6e6913ae", "true"));
+// print_r(Motoboy::confirmPedido("0a102c0b-2cfa-4a27-9e5a-e53f6e6913ae", "true"));

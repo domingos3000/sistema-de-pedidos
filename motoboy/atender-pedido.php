@@ -23,9 +23,9 @@ if(isset($_POST['update_payment'])){
    }
 
    $pedidos_id = $_POST['order_id'];
-   $pedidos_id = $_POST['payment_status'];
+   $status = $_POST['payment_status'];
 
-   Motoboy::confirmPedido($pedidos_id, $pedidos_id);
+   Motoboy::confirmPedido($pedidos_id, $status);
 
    header('location: painel.php?redirect=atender-pedido');
 }
