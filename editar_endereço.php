@@ -50,7 +50,7 @@ if(isset($_POST['submit'])){
 
    <form action="" method="post">
       <h3>A sua morada</h3>
-      <input type="text" class="box" placeholder="Endereço" required maxlength="50" name="endereco">
+      <input type="text" class="box" placeholder="Endereço" required name="endereco">
       <input type="submit" value="salvar endereço" name="submit" class="btn">
    </form>
 
