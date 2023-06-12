@@ -52,8 +52,8 @@ if($redirectAtenderPedido == 'atender-pedido'){
    <div class="box">
       <?php
          $total_pendings = 0;
-         $select_pendings = $conn->prepare("SELECT * FROM pedidos WHERE confirmacao_motoboy = ? AND estado_pagamento != ?");
-         $select_pendings->execute(['false', '0']);
+         $select_pendings = $conn->prepare("SELECT * FROM pedidos WHERE confirmacao_motoboy = ? AND motoboy_id = ?");
+         $select_pendings->execute(['false', $motoboyId]);
          $count_pendings = $select_pendings->rowCount();
       ?>
       <h3> <?= $count_pendings; ?> </h3>
