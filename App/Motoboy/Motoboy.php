@@ -70,7 +70,7 @@ class Motoboy {
 
     public static function findMyTask($idMotoboy){
 
-        $stmt = db()->prepare("SELECT * FROM pedidos WHERE motoboy_id = ?");
+        $stmt = db()->prepare("SELECT * FROM pedidos WHERE `motoboy_id` = ? AND `confirmacao_motoboy` = 'false'");
         $stmt->execute([$idMotoboy]);
 
         if($stmt->rowCount() > 0){
