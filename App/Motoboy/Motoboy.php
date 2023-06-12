@@ -28,7 +28,7 @@ class Motoboy {
     public static function register(){
 
         $stmt = self::$db->prepare("INSERT INTO motoboy (id, nome, email, senha, disponivel) VALUES (?,?,?,?,?)");
-        $stmt->execute([self::$id, self::$nome, self::$email, self::$senha, 'false']);
+        $stmt->execute([self::$id, self::$nome, self::$email, self::$senha, 'true']);
 
     }
 
